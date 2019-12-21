@@ -33,6 +33,7 @@ I2C ADDRESS/BITS
 #define LIS3MDL_REG_CTRL_REG3 0x22 ///< Register address for control 3
 #define LIS3MDL_REG_CTRL_REG4 0x23 ///< Register address for control 3
 #define LIS3MDL_REG_OUT_X_L 0x28   ///< Register address for X axis lower byte
+#define LIS3MDL_REG_INT_CFG 0x30 ///< Interrupt configuration register
 #define LIS3MDL_REG_INT_THS_L 0x32 ///< Low byte of the irq threshold
 
 
@@ -54,7 +55,6 @@ typedef enum {
   LIS3MDL_DATARATE_20_HZ = 0b1010,    ///<  20 Hz
   LIS3MDL_DATARATE_40_HZ = 0b1100,    ///<  40 Hz
   LIS3MDL_DATARATE_80_HZ = 0b1110,    ///<  80 Hz
-
   LIS3MDL_DATARATE_155_HZ = 0b0001,   ///<  155 Hz (FAST_ODR + UHP)
   LIS3MDL_DATARATE_300_HZ = 0b0011,   ///<  300 Hz (FAST_ODR + HP)
   LIS3MDL_DATARATE_560_HZ = 0b0101,   ///<  560 Hz (FAST_ODR + MP)
@@ -96,6 +96,8 @@ public:
   lis3mdl_range_t getRange(void);
   void setIntThreshold(uint16_t value);
   uint16_t getIntThreshold(void);
+  void configInterrupt(bool enableX, bool enableY, bool enableZ,
+		       bool polarity, bool latch, bool enableInt);
 
   void read();
   bool getEvent(sensors_event_t *event);

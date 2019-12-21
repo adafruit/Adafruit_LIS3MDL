@@ -335,3 +335,34 @@ uint16_t Adafruit_LIS3MDL::getIntThreshold(void) {
   return INT_THS.read();
 }
 
+
+
+
+/**************************************************************************/
+/*!
+    @brief Configure INT_CFG 
+    @param enableX Enable interrupt generation on X-axis
+    @param enableY Enable interrupt generation on Y-axis
+    @param enableZ Enable interrupt generation on Z-axis
+    @param polarity Sets the polarity of the INT output logic
+    @param latch If true (latched) the INT pin remains in the same state
+    until INT_SRC is read.
+    @param enableInt Interrupt enable on INT pin
+*/
+/**************************************************************************/
+void Adafruit_LIS3MDL::configInterrupt(bool enableX, bool enableY, bool enableZ,
+				       bool polarity, bool latch, bool enableInt) {
+  latch = !latch; // weird, but this is inverted logic see table 37
+
+  uint8_t value = 0x08; // set default bits, see table 36
+  value |= enableX << 7;
+  value |= enableY << 6;
+  value |= enableZ << 5;
+  value |= polarity << 2;
+  value |= latch << 1;
+  value |= enableInt;
+
+  Adafruit_BusIO_Register INT_CFG =
+      Adafruit_BusIO_Register(i2c_dev, LIS3MDL_REG_INT_CFG, 1);
+  INT_CFG.write(value);
+}
