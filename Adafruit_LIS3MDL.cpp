@@ -70,6 +70,11 @@ bool Adafruit_LIS3MDL::begin(uint8_t i2c_address, TwoWire *wire) {
   return true;
 }
 
+/**************************************************************************/
+/*!
+    @brief  Performs a software reset
+*/
+/**************************************************************************/
 void Adafruit_LIS3MDL::reset(void) {
   Adafruit_BusIO_Register CTRL_REG2 =
       Adafruit_BusIO_Register(i2c_dev, LIS3MDL_REG_CTRL_REG2, 1);
