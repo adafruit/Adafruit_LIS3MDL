@@ -33,6 +33,7 @@ void setup(void) {
   // Single shot mode will complete conversion and go into power down
   switch (lis3mdl.getOperationMode()) {
     case LIS3MDL_CONTINUOUSMODE: Serial.println("Continuous"); break;
+    case LIS3MDL_SINGLEMODE: Serial.println("Single mode"); break;
     case LIS3MDL_POWERDOWNMODE: Serial.println("Power-down"); break;
   }
 
