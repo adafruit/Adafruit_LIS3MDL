@@ -59,36 +59,13 @@ bool Adafruit_LIS3MDL::begin(uint8_t i2c_address, TwoWire *wire) {
   reset();
 
   // set high quality performance mode
-  setPerformanceMode(LIS3MDL_HIGHMODE);
+  setPerformanceMode(LIS3MDL_ULTRAHIGHMODE);
 
-  // 80Hz rate
-  setDataRate(LIS3MDL_DATARATE_80_HZ);
+  // 155Hz default rate
+  setDataRate(LIS3MDL_DATARATE_155_HZ);
 
   // lowest range
   setRange(LIS3MDL_RANGE_4_GAUSS);
-
-  /*
-  // enable all axes
-  enableAxes(true, true, true);
-  // 250Hz bw
-  setBandwidth(MSA301_BANDWIDTH_250_HZ);
-  setResolution(MSA301_RESOLUTION_14);
-  */
-  /*
-  // DRDY on INT1
-  writeRegister8(MSA301_REG_CTRL3, 0x10);
-
-  // Turn on orientation config
-  //writeRegister8(MSA301_REG_PL_CFG, 0x40);
-
-  */
-  /*
-  for (uint8_t i=0; i<0x30; i++) {
-    Serial.print("$");
-    Serial.print(i, HEX); Serial.print(" = 0x");
-    Serial.println(readRegister8(i), HEX);
-  }
-  */
 
   return true;
 }
@@ -307,7 +284,7 @@ lis3mdl_operationmode_t Adafruit_LIS3MDL::getOperationMode(void) {
 /**************************************************************************/
 /*!
     @brief Set the resolution range: +-4 gauss, 8 gauss, 12 gauss, or 16 gauss.
-    @param range Enumerated msa301_range_t
+    @param range Enumerated lis3mdl_range_t
 */
 /**************************************************************************/
 void Adafruit_LIS3MDL::setRange(lis3mdl_range_t range) {
@@ -331,3 +308,30 @@ lis3mdl_range_t Adafruit_LIS3MDL::getRange(void) {
       Adafruit_BusIO_RegisterBits(&CTRL_REG2, 2, 5);
   return (lis3mdl_range_t)rangebits.read();
 }
+
+
+/**************************************************************************/
+/*!
+    @brief Set the interrupt threshold value
+    @param value 16-bit unsigned raw value
+*/
+/**************************************************************************/
+void Adafruit_LIS3MDL::setIntThreshold(uint16_t value) {
+  value &= 0x7FFF; // high bit must be 0!
+  Adafruit_BusIO_Register INT_THS =
+      Adafruit_BusIO_Register(i2c_dev, LIS3MDL_REG_INT_THS_L, 2);
+  INT_THS.write(value);
+}
+
+/**************************************************************************/
+/*!
+    @brief Get the interrupt threshold value
+    @returns 16-bit unsigned raw value
+*/
+/**************************************************************************/
+uint16_t Adafruit_LIS3MDL::getIntThreshold(void) {
+  Adafruit_BusIO_Register INT_THS =
+      Adafruit_BusIO_Register(i2c_dev, LIS3MDL_REG_INT_THS_L, 2);
+  return INT_THS.read();
+}
+
