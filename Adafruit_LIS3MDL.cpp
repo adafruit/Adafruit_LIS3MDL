@@ -190,7 +190,7 @@ void Adafruit_LIS3MDL::setPerformanceMode(lis3mdl_performancemode_t mode) {
 /**************************************************************************/
 /*!
     @brief Get the performance mode
-    @returns Enumerated lis3mdl_performancemode_t, LIS3MDL_LOWPOWERMODE, 
+    @returns Enumerated lis3mdl_performancemode_t, LIS3MDL_LOWPOWERMODE,
     LIS3MDL_MEDIUMMODE, LIS3MDL_HIGHMODE or LIS3MDL_ULTRAHIGHMODE
 */
 /**************************************************************************/
@@ -232,7 +232,6 @@ void Adafruit_LIS3MDL::setDataRate(lis3mdl_dataRate_t dataRate) {
   Adafruit_BusIO_RegisterBits dataratebits =
       Adafruit_BusIO_RegisterBits(&CTRL_REG1, 4, 1); // includes FAST_ODR
   dataratebits.write((uint8_t)dataRate);
-
 }
 
 /**************************************************************************/
@@ -245,10 +244,9 @@ lis3mdl_dataRate_t Adafruit_LIS3MDL::getDataRate(void) {
   Adafruit_BusIO_Register CTRL_REG1 =
       Adafruit_BusIO_Register(i2c_dev, LIS3MDL_REG_CTRL_REG1, 1);
   Adafruit_BusIO_RegisterBits dataratebits =
-    Adafruit_BusIO_RegisterBits(&CTRL_REG1, 4, 1); // includes FAST_ODR
+      Adafruit_BusIO_RegisterBits(&CTRL_REG1, 4, 1); // includes FAST_ODR
   return (lis3mdl_dataRate_t)dataratebits.read();
 }
-
 
 /**************************************************************************/
 /*!
@@ -309,7 +307,6 @@ lis3mdl_range_t Adafruit_LIS3MDL::getRange(void) {
   return (lis3mdl_range_t)rangebits.read();
 }
 
-
 /**************************************************************************/
 /*!
     @brief Set the interrupt threshold value
@@ -335,12 +332,9 @@ uint16_t Adafruit_LIS3MDL::getIntThreshold(void) {
   return INT_THS.read();
 }
 
-
-
-
 /**************************************************************************/
 /*!
-    @brief Configure INT_CFG 
+    @brief Configure INT_CFG
     @param enableX Enable interrupt generation on X-axis
     @param enableY Enable interrupt generation on Y-axis
     @param enableZ Enable interrupt generation on Z-axis
@@ -351,9 +345,8 @@ uint16_t Adafruit_LIS3MDL::getIntThreshold(void) {
 */
 /**************************************************************************/
 void Adafruit_LIS3MDL::configInterrupt(bool enableX, bool enableY, bool enableZ,
-				       bool polarity, bool latch, bool enableInt) {
-  latch = !latch; // weird, but this is inverted logic see table 37
-
+                                       bool polarity, bool latch,
+                                       bool enableInt) {
   uint8_t value = 0x08; // set default bits, see table 36
   value |= enableX << 7;
   value |= enableY << 6;

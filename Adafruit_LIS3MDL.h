@@ -33,9 +33,8 @@ I2C ADDRESS/BITS
 #define LIS3MDL_REG_CTRL_REG3 0x22 ///< Register address for control 3
 #define LIS3MDL_REG_CTRL_REG4 0x23 ///< Register address for control 3
 #define LIS3MDL_REG_OUT_X_L 0x28   ///< Register address for X axis lower byte
-#define LIS3MDL_REG_INT_CFG 0x30 ///< Interrupt configuration register
+#define LIS3MDL_REG_INT_CFG 0x30   ///< Interrupt configuration register
 #define LIS3MDL_REG_INT_THS_L 0x32 ///< Low byte of the irq threshold
-
 
 /** The magnetometer ranges */
 typedef enum {
@@ -69,14 +68,12 @@ typedef enum {
   LIS3MDL_ULTRAHIGHMODE = 0b11, ///< Ultra-high performance mode
 } lis3mdl_performancemode_t;
 
-
 /** The magnetometer operation mode */
 typedef enum {
   LIS3MDL_CONTINUOUSMODE = 0b00, ///< Continuous conversion
   LIS3MDL_SINGLEMODE = 0b01,     ///< Single-shot conversion
   LIS3MDL_POWERDOWNMODE = 0b11,  ///< Powered-down mode
 } lis3mdl_operationmode_t;
-
 
 /** Class for hardware interfacing with an LIS3MDL magnetometer */
 class Adafruit_LIS3MDL : public Adafruit_Sensor {
@@ -96,19 +93,19 @@ public:
   lis3mdl_range_t getRange(void);
   void setIntThreshold(uint16_t value);
   uint16_t getIntThreshold(void);
-  void configInterrupt(bool enableX, bool enableY, bool enableZ,
-		       bool polarity, bool latch, bool enableInt);
+  void configInterrupt(bool enableX, bool enableY, bool enableZ, bool polarity,
+                       bool latch, bool enableInt);
 
   void read();
   bool getEvent(sensors_event_t *event);
   void getSensor(sensor_t *sensor);
 
-  int16_t x, ///< The last read X mag in raw units
-          y, ///< The last read Y mag in raw units
-          z; ///< The last read Z mag in raw units
+  int16_t x,     ///< The last read X mag in raw units
+      y,         ///< The last read Y mag in raw units
+      z;         ///< The last read Z mag in raw units
   float x_gauss, ///< The last read X mag in 'gauss'
-        y_gauss, ///< The last read Y mag in 'gauss'
-        z_gauss; ///< The last read Z mag in 'gauss'
+      y_gauss,   ///< The last read Y mag in 'gauss'
+      z_gauss;   ///< The last read Z mag in 'gauss'
 
 private:
   Adafruit_I2CDevice *i2c_dev;
