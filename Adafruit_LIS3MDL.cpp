@@ -50,7 +50,6 @@ bool Adafruit_LIS3MDL::begin_I2C(uint8_t i2c_address, TwoWire *wire) {
   return _init();
 }
 
-
 /*!
  *    @brief  Sets up the hardware and initializes hardware SPI
  *    @param  cs_pin The arduino pin # connected to chip select
@@ -59,17 +58,16 @@ bool Adafruit_LIS3MDL::begin_I2C(uint8_t i2c_address, TwoWire *wire) {
  */
 boolean Adafruit_LIS3MDL::begin_SPI(uint8_t cs_pin, SPIClass *theSPI) {
   i2c_dev = NULL;
-  spi_dev = new Adafruit_SPIDevice(cs_pin, 
-				   1000000,   // frequency
-				   SPI_BITORDER_MSBFIRST,  // bit order
-				   SPI_MODE0, // data mode
-				   theSPI);
+  spi_dev = new Adafruit_SPIDevice(cs_pin,
+                                   1000000,               // frequency
+                                   SPI_BITORDER_MSBFIRST, // bit order
+                                   SPI_MODE0,             // data mode
+                                   theSPI);
   if (!spi_dev->begin()) {
     return false;
   }
   return _init();
 }
-
 
 /*!
  *    @brief  Sets up the hardware and initializes software SPI
@@ -79,18 +77,18 @@ boolean Adafruit_LIS3MDL::begin_SPI(uint8_t cs_pin, SPIClass *theSPI) {
  *    @param  mosi_pin The arduino pin # connected to SPI MOSI
  *    @return True if initialization was successful, otherwise false.
  */
-bool Adafruit_LIS3MDL::begin_SPI(int8_t cs_pin, int8_t sck_pin, int8_t miso_pin, int8_t mosi_pin) {
+bool Adafruit_LIS3MDL::begin_SPI(int8_t cs_pin, int8_t sck_pin, int8_t miso_pin,
+                                 int8_t mosi_pin) {
   i2c_dev = NULL;
   spi_dev = new Adafruit_SPIDevice(cs_pin, sck_pin, miso_pin, mosi_pin,
-				   1000000,   // frequency
-				   SPI_BITORDER_MSBFIRST,  // bit order
-				   SPI_MODE0); // data mode
+                                   1000000,               // frequency
+                                   SPI_BITORDER_MSBFIRST, // bit order
+                                   SPI_MODE0);            // data mode
   if (!spi_dev->begin()) {
     return false;
   }
   return _init();
 }
-
 
 /*!
  *    @brief  Common initialization code for I2C & SPI
@@ -99,8 +97,8 @@ bool Adafruit_LIS3MDL::begin_SPI(int8_t cs_pin, int8_t sck_pin, int8_t miso_pin,
 bool Adafruit_LIS3MDL::_init(void) {
   // Check connection
   Adafruit_BusIO_Register chip_id =
-      Adafruit_BusIO_Register(i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, 
-			      LIS3MDL_REG_WHO_AM_I, 1);
+      Adafruit_BusIO_Register(i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC,
+                              LIS3MDL_REG_WHO_AM_I, 1);
 
   // make sure we're talking to the right chip
   if (chip_id.read() != 0x3D) {
@@ -124,14 +122,14 @@ bool Adafruit_LIS3MDL::_init(void) {
 
 /**************************************************************************/
 /*!
-    
+
 @brief  Performs a software reset
 */
 /**************************************************************************/
 void Adafruit_LIS3MDL::reset(void) {
   Adafruit_BusIO_Register CTRL_REG2 =
-      Adafruit_BusIO_Register(i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, 
-			      LIS3MDL_REG_CTRL_REG2, 1);
+      Adafruit_BusIO_Register(i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC,
+                              LIS3MDL_REG_CTRL_REG2, 1);
   Adafruit_BusIO_RegisterBits resetbits =
       Adafruit_BusIO_RegisterBits(&CTRL_REG2, 1, 2);
   resetbits.write(0x1);
@@ -148,9 +146,8 @@ void Adafruit_LIS3MDL::reset(void) {
 void Adafruit_LIS3MDL::read(void) {
   uint8_t buffer[6];
 
-  Adafruit_BusIO_Register XYZDataReg =
-      Adafruit_BusIO_Register(i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, 
-			      LIS3MDL_REG_OUT_X_L, 6);
+  Adafruit_BusIO_Register XYZDataReg = Adafruit_BusIO_Register(
+      i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, LIS3MDL_REG_OUT_X_L, 6);
   XYZDataReg.read(buffer, 6);
   x = buffer[0];
   x |= buffer[1] << 8;
@@ -234,16 +231,16 @@ void Adafruit_LIS3MDL::getSensor(sensor_t *sensor) {
 void Adafruit_LIS3MDL::setPerformanceMode(lis3mdl_performancemode_t mode) {
   // write xy
   Adafruit_BusIO_Register CTRL_REG1 =
-      Adafruit_BusIO_Register(i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, 
-			      LIS3MDL_REG_CTRL_REG1, 1);
+      Adafruit_BusIO_Register(i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC,
+                              LIS3MDL_REG_CTRL_REG1, 1);
   Adafruit_BusIO_RegisterBits performancemodebits =
       Adafruit_BusIO_RegisterBits(&CTRL_REG1, 2, 5);
   performancemodebits.write((uint8_t)mode);
 
   // write z
   Adafruit_BusIO_Register CTRL_REG4 =
-      Adafruit_BusIO_Register(i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, 
-			      LIS3MDL_REG_CTRL_REG4, 1);
+      Adafruit_BusIO_Register(i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC,
+                              LIS3MDL_REG_CTRL_REG4, 1);
   Adafruit_BusIO_RegisterBits performancemodezbits =
       Adafruit_BusIO_RegisterBits(&CTRL_REG4, 2, 2);
   performancemodezbits.write((uint8_t)mode);
@@ -258,8 +255,8 @@ void Adafruit_LIS3MDL::setPerformanceMode(lis3mdl_performancemode_t mode) {
 /**************************************************************************/
 lis3mdl_performancemode_t Adafruit_LIS3MDL::getPerformanceMode(void) {
   Adafruit_BusIO_Register CTRL_REG1 =
-      Adafruit_BusIO_Register(i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, 
-			      LIS3MDL_REG_CTRL_REG1, 1);
+      Adafruit_BusIO_Register(i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC,
+                              LIS3MDL_REG_CTRL_REG1, 1);
   Adafruit_BusIO_RegisterBits performancemodebits =
       Adafruit_BusIO_RegisterBits(&CTRL_REG1, 2, 5);
   return (lis3mdl_performancemode_t)performancemodebits.read();
@@ -291,8 +288,8 @@ void Adafruit_LIS3MDL::setDataRate(lis3mdl_dataRate_t dataRate) {
   }
   delay(10);
   Adafruit_BusIO_Register CTRL_REG1 =
-      Adafruit_BusIO_Register(i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, 
-			      LIS3MDL_REG_CTRL_REG1, 1);
+      Adafruit_BusIO_Register(i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC,
+                              LIS3MDL_REG_CTRL_REG1, 1);
   Adafruit_BusIO_RegisterBits dataratebits =
       Adafruit_BusIO_RegisterBits(&CTRL_REG1, 4, 1); // includes FAST_ODR
   dataratebits.write((uint8_t)dataRate);
@@ -306,8 +303,8 @@ void Adafruit_LIS3MDL::setDataRate(lis3mdl_dataRate_t dataRate) {
 /**************************************************************************/
 lis3mdl_dataRate_t Adafruit_LIS3MDL::getDataRate(void) {
   Adafruit_BusIO_Register CTRL_REG1 =
-      Adafruit_BusIO_Register(i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, 
-			      LIS3MDL_REG_CTRL_REG1, 1);
+      Adafruit_BusIO_Register(i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC,
+                              LIS3MDL_REG_CTRL_REG1, 1);
   Adafruit_BusIO_RegisterBits dataratebits =
       Adafruit_BusIO_RegisterBits(&CTRL_REG1, 4, 1); // includes FAST_ODR
   return (lis3mdl_dataRate_t)dataratebits.read();
@@ -323,8 +320,8 @@ lis3mdl_dataRate_t Adafruit_LIS3MDL::getDataRate(void) {
 void Adafruit_LIS3MDL::setOperationMode(lis3mdl_operationmode_t mode) {
   // write x and y
   Adafruit_BusIO_Register CTRL_REG3 =
-      Adafruit_BusIO_Register(i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, 
-			      LIS3MDL_REG_CTRL_REG3, 1);
+      Adafruit_BusIO_Register(i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC,
+                              LIS3MDL_REG_CTRL_REG3, 1);
   Adafruit_BusIO_RegisterBits opmodebits =
       Adafruit_BusIO_RegisterBits(&CTRL_REG3, 2, 0);
   opmodebits.write((uint8_t)mode);
@@ -339,8 +336,8 @@ void Adafruit_LIS3MDL::setOperationMode(lis3mdl_operationmode_t mode) {
 /**************************************************************************/
 lis3mdl_operationmode_t Adafruit_LIS3MDL::getOperationMode(void) {
   Adafruit_BusIO_Register CTRL_REG3 =
-      Adafruit_BusIO_Register(i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, 
-			      LIS3MDL_REG_CTRL_REG3, 1);
+      Adafruit_BusIO_Register(i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC,
+                              LIS3MDL_REG_CTRL_REG3, 1);
   Adafruit_BusIO_RegisterBits opmodebits =
       Adafruit_BusIO_RegisterBits(&CTRL_REG3, 2, 0);
   return (lis3mdl_operationmode_t)opmodebits.read();
@@ -354,8 +351,8 @@ lis3mdl_operationmode_t Adafruit_LIS3MDL::getOperationMode(void) {
 /**************************************************************************/
 void Adafruit_LIS3MDL::setRange(lis3mdl_range_t range) {
   Adafruit_BusIO_Register CTRL_REG2 =
-      Adafruit_BusIO_Register(i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, 
-			      LIS3MDL_REG_CTRL_REG2, 1);
+      Adafruit_BusIO_Register(i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC,
+                              LIS3MDL_REG_CTRL_REG2, 1);
   Adafruit_BusIO_RegisterBits rangebits =
       Adafruit_BusIO_RegisterBits(&CTRL_REG2, 2, 5);
   rangebits.write((uint8_t)range);
@@ -369,8 +366,8 @@ void Adafruit_LIS3MDL::setRange(lis3mdl_range_t range) {
 /**************************************************************************/
 lis3mdl_range_t Adafruit_LIS3MDL::getRange(void) {
   Adafruit_BusIO_Register CTRL_REG2 =
-      Adafruit_BusIO_Register(i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, 
-			      LIS3MDL_REG_CTRL_REG2, 1);
+      Adafruit_BusIO_Register(i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC,
+                              LIS3MDL_REG_CTRL_REG2, 1);
   Adafruit_BusIO_RegisterBits rangebits =
       Adafruit_BusIO_RegisterBits(&CTRL_REG2, 2, 5);
   return (lis3mdl_range_t)rangebits.read();
@@ -385,8 +382,8 @@ lis3mdl_range_t Adafruit_LIS3MDL::getRange(void) {
 void Adafruit_LIS3MDL::setIntThreshold(uint16_t value) {
   value &= 0x7FFF; // high bit must be 0!
   Adafruit_BusIO_Register INT_THS =
-      Adafruit_BusIO_Register(i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, 
-			      LIS3MDL_REG_INT_THS_L, 2);
+      Adafruit_BusIO_Register(i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC,
+                              LIS3MDL_REG_INT_THS_L, 2);
   INT_THS.write(value);
 }
 
@@ -398,8 +395,8 @@ void Adafruit_LIS3MDL::setIntThreshold(uint16_t value) {
 /**************************************************************************/
 uint16_t Adafruit_LIS3MDL::getIntThreshold(void) {
   Adafruit_BusIO_Register INT_THS =
-      Adafruit_BusIO_Register(i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, 
-			      LIS3MDL_REG_INT_THS_L, 2);
+      Adafruit_BusIO_Register(i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC,
+                              LIS3MDL_REG_INT_THS_L, 2);
   return INT_THS.read();
 }
 
@@ -426,8 +423,7 @@ void Adafruit_LIS3MDL::configInterrupt(bool enableX, bool enableY, bool enableZ,
   value |= latch << 1;
   value |= enableInt;
 
-  Adafruit_BusIO_Register INT_CFG =
-      Adafruit_BusIO_Register(i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, 
-			      LIS3MDL_REG_INT_CFG, 1);
+  Adafruit_BusIO_Register INT_CFG = Adafruit_BusIO_Register(
+      i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, LIS3MDL_REG_INT_CFG, 1);
   INT_CFG.write(value);
 }
