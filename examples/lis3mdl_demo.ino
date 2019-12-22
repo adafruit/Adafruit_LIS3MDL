@@ -5,6 +5,10 @@
 #include <Adafruit_Sensor.h>
 
 Adafruit_LIS3MDL lis3mdl;
+#define LIS3MDL_CLK 13
+#define LIS3MDL_MISO 12
+#define LIS3MDL_MOSI 11
+#define LIS3MDL_CS 10
 
 void setup(void) {
   Serial.begin(115200);
@@ -13,7 +17,9 @@ void setup(void) {
   Serial.println("Adafruit LIS3MDL test!");
   
   // Try to initialize!
-  if (! lis3mdl.begin()) {
+  if (! lis3mdl.begin_I2C()) {          // hardware I2C mode, can pass in address & alt Wire
+  //if (! lis3mdl.begin_SPI(LIS3MDL_CS)) {  // hardware SPI mode
+  //if (! lis3mdl.begin_SPI(LIS3MDL_CS, LIS3MDL_CLK, LIS3MDL_MISO, LIS3MDL_MOSI)) { // soft SPI
     Serial.println("Failed to find LIS3MDL chip");
     while (1) { delay(10); }
   }

@@ -18,6 +18,7 @@
 
 #include <Adafruit_BusIO_Register.h>
 #include <Adafruit_I2CDevice.h>
+#include <Adafruit_SPIDevice.h>
 #include <Adafruit_Sensor.h>
 #include <Wire.h>
 
@@ -79,7 +80,9 @@ typedef enum {
 class Adafruit_LIS3MDL : public Adafruit_Sensor {
 public:
   Adafruit_LIS3MDL(void);
-  bool begin(uint8_t i2c_addr = LIS3MDL_I2CADDR_DEFAULT, TwoWire *wire = &Wire);
+  bool begin_I2C(uint8_t i2c_addr = LIS3MDL_I2CADDR_DEFAULT, TwoWire *wire = &Wire);
+  bool begin_SPI(uint8_t cs_pin, SPIClass *theSPI=&SPI);
+  bool begin_SPI(int8_t cs_pin, int8_t sck_pin, int8_t miso_pin, int8_t mosi_pin);
 
   void reset(void);
 
@@ -108,7 +111,10 @@ public:
       z_gauss;   ///< The last read Z mag in 'gauss'
 
 private:
+  bool _init(void);
+
   Adafruit_I2CDevice *i2c_dev;
+  Adafruit_SPIDevice *spi_dev;
 
   int32_t _sensorID;
 };
