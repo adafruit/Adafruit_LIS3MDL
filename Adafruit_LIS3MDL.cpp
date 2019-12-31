@@ -40,7 +40,9 @@ Adafruit_LIS3MDL::Adafruit_LIS3MDL() {}
  *    @return True if initialization was successful, otherwise false.
  */
 bool Adafruit_LIS3MDL::begin_I2C(uint8_t i2c_address, TwoWire *wire) {
-  i2c_dev = new Adafruit_I2CDevice(i2c_address, wire);
+  if (!i2c_dev) {
+    i2c_dev = new Adafruit_I2CDevice(i2c_address, wire);
+  }
   spi_dev = NULL;
 
   if (!i2c_dev->begin()) {
@@ -58,11 +60,13 @@ bool Adafruit_LIS3MDL::begin_I2C(uint8_t i2c_address, TwoWire *wire) {
  */
 boolean Adafruit_LIS3MDL::begin_SPI(uint8_t cs_pin, SPIClass *theSPI) {
   i2c_dev = NULL;
-  spi_dev = new Adafruit_SPIDevice(cs_pin,
+  if (!spi_dev) {
+    spi_dev = new Adafruit_SPIDevice(cs_pin,
                                    1000000,               // frequency
                                    SPI_BITORDER_MSBFIRST, // bit order
                                    SPI_MODE0,             // data mode
                                    theSPI);
+  }
   if (!spi_dev->begin()) {
     return false;
   }
@@ -80,10 +84,12 @@ boolean Adafruit_LIS3MDL::begin_SPI(uint8_t cs_pin, SPIClass *theSPI) {
 bool Adafruit_LIS3MDL::begin_SPI(int8_t cs_pin, int8_t sck_pin, int8_t miso_pin,
                                  int8_t mosi_pin) {
   i2c_dev = NULL;
-  spi_dev = new Adafruit_SPIDevice(cs_pin, sck_pin, miso_pin, mosi_pin,
-                                   1000000,               // frequency
-                                   SPI_BITORDER_MSBFIRST, // bit order
-                                   SPI_MODE0);            // data mode
+  if (!spi_dev) {
+    spi_dev = new Adafruit_SPIDevice(cs_pin, sck_pin, miso_pin, mosi_pin,
+				     1000000,               // frequency
+				     SPI_BITORDER_MSBFIRST, // bit order
+				     SPI_MODE0);            // data mode
+  }
   if (!spi_dev->begin()) {
     return false;
   }
@@ -116,6 +122,8 @@ bool Adafruit_LIS3MDL::_init(void) {
 
   // lowest range
   setRange(LIS3MDL_RANGE_4_GAUSS);
+
+  setOperationMode(LIS3MDL_CONTINUOUSMODE);
 
   return true;
 }
@@ -426,4 +434,22 @@ void Adafruit_LIS3MDL::configInterrupt(bool enableX, bool enableY, bool enableZ,
   Adafruit_BusIO_Register INT_CFG = Adafruit_BusIO_Register(
       i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, LIS3MDL_REG_INT_CFG, 1);
   INT_CFG.write(value);
+}
+
+/**************************************************************************/
+/*!
+    @brief Enable or disable self-test
+    @param flag If true, enable self-test
+
+*/
+/**************************************************************************/
+void Adafruit_LIS3MDL::selfTest(bool flag) {
+  Adafruit_BusIO_Register CTRL_REG1 =
+      Adafruit_BusIO_Register(i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC,
+                              LIS3MDL_REG_CTRL_REG1, 1);
+
+  Adafruit_BusIO_RegisterBits stbit =
+      Adafruit_BusIO_RegisterBits(&CTRL_REG1, 1, 0);
+
+  stbit.write(flag);
 }

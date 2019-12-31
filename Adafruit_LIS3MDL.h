@@ -100,6 +100,7 @@ public:
   uint16_t getIntThreshold(void);
   void configInterrupt(bool enableX, bool enableY, bool enableZ, bool polarity,
                        bool latch, bool enableInt);
+  void selfTest(bool flag);
 
   void read();
   bool getEvent(sensors_event_t *event);
