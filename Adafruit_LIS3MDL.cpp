@@ -62,10 +62,10 @@ boolean Adafruit_LIS3MDL::begin_SPI(uint8_t cs_pin, SPIClass *theSPI) {
   i2c_dev = NULL;
   if (!spi_dev) {
     spi_dev = new Adafruit_SPIDevice(cs_pin,
-                                   1000000,               // frequency
-                                   SPI_BITORDER_MSBFIRST, // bit order
-                                   SPI_MODE0,             // data mode
-                                   theSPI);
+                                     1000000,               // frequency
+                                     SPI_BITORDER_MSBFIRST, // bit order
+                                     SPI_MODE0,             // data mode
+                                     theSPI);
   }
   if (!spi_dev->begin()) {
     return false;
@@ -86,9 +86,9 @@ bool Adafruit_LIS3MDL::begin_SPI(int8_t cs_pin, int8_t sck_pin, int8_t miso_pin,
   i2c_dev = NULL;
   if (!spi_dev) {
     spi_dev = new Adafruit_SPIDevice(cs_pin, sck_pin, miso_pin, mosi_pin,
-				     1000000,               // frequency
-				     SPI_BITORDER_MSBFIRST, // bit order
-				     SPI_MODE0);            // data mode
+                                     1000000,               // frequency
+                                     SPI_BITORDER_MSBFIRST, // bit order
+                                     SPI_MODE0);            // data mode
   }
   if (!spi_dev->begin()) {
     return false;
