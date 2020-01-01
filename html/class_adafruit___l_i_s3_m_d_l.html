@@ -129,6 +129,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a53fa28be29f596eeb1004cb41e98095f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___l_i_s3_m_d_l.html#a53fa28be29f596eeb1004cb41e98095f">configInterrupt</a> (bool enableX, bool enableY, bool enableZ, bool polarity, bool latch, bool enableInt)</td></tr>
 <tr class="memdesc:a53fa28be29f596eeb1004cb41e98095f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure INT_CFG.  <a href="#a53fa28be29f596eeb1004cb41e98095f">More...</a><br /></td></tr>
 <tr class="separator:a53fa28be29f596eeb1004cb41e98095f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1bcebba8e8c530eac77e4fa62a55551"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___l_i_s3_m_d_l.html#ab1bcebba8e8c530eac77e4fa62a55551">selfTest</a> (bool flag)</td></tr>
+<tr class="memdesc:ab1bcebba8e8c530eac77e4fa62a55551"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable self-test.  <a href="#ab1bcebba8e8c530eac77e4fa62a55551">More...</a><br /></td></tr>
+<tr class="separator:ab1bcebba8e8c530eac77e4fa62a55551"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af70239118a9820f46b9ce348f182d010"><td class="memItemLeft" align="right" valign="top"><a id="af70239118a9820f46b9ce348f182d010"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___l_i_s3_m_d_l.html#af70239118a9820f46b9ce348f182d010">read</a> ()</td></tr>
 <tr class="memdesc:af70239118a9820f46b9ce348f182d010"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the XYZ data from the magnetometer and store in the internal x, y and z (and x_g, y_g, z_g) member variables. <br /></td></tr>
@@ -592,6 +595,32 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
     <tr><td class="paramname">polarity</td><td>Sets the polarity of the INT output logic </td></tr>
     <tr><td class="paramname">latch</td><td>If true (latched) the INT pin remains in the same state until INT_SRC is read. </td></tr>
     <tr><td class="paramname">enableInt</td><td>Interrupt enable on INT pin </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab1bcebba8e8c530eac77e4fa62a55551"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1bcebba8e8c530eac77e4fa62a55551">&#9670;&nbsp;</a></span>selfTest()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Adafruit_LIS3MDL::selfTest </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>flag</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enable or disable self-test. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">flag</td><td>If true, enable self-test </td></tr>
   </table>
   </dd>
 </dl>
