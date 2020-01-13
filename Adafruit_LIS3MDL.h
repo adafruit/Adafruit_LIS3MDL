@@ -116,8 +116,8 @@ public:
 private:
   bool _init(void);
 
-  Adafruit_I2CDevice *i2c_dev;
-  Adafruit_SPIDevice *spi_dev;
+  Adafruit_I2CDevice *i2c_dev = NULL;
+  Adafruit_SPIDevice *spi_dev = NULL;
 
   int32_t _sensorID;
 };

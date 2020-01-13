@@ -224,9 +224,9 @@ void Adafruit_LIS3MDL::getSensor(sensor_t *sensor) {
   sensor->sensor_id = _sensorID;
   sensor->type = SENSOR_TYPE_MAGNETIC_FIELD;
   sensor->min_delay = 0;
-  sensor->max_value = 0;
-  sensor->min_value = 0;
-  sensor->resolution = 0;
+  sensor->min_value = -1600; // -16 gauss in uTesla
+  sensor->max_value = 1600; // +16 gauss in uTesla
+  sensor->resolution = 0.015; // 100/6842 uTesla per LSB at +-4 gauss range
 }
 
 /**************************************************************************/
