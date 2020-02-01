@@ -1,8 +1,6 @@
-Adafruit_LIS3MDL ![Build Status](https://github.com/adafruit/Adafruit_LIS3MDL/workflows/Arduino%20Library%20CI/badge.svg)
+# Adafruit LIS3MDL [![Build Status](https://github.com/adafruit/Adafruit_LIS3MDL/workflows/Arduino%20Library%20CI/badge.svg)](https://github.com/adafruit/Adafruit_LIS3MDL/actions)
 
-================
-
-<a href="https://www.adafruit.com/products"><img src="assets/board.jpg?raw=true" width="500px"></a>
+<a href="https://www.adafruit.com/products/4479"><img src="assets/board.jpg?raw=true" width="500px"></a>
 
 This is the Adafruit LIS3MDL magnetometer library
 
