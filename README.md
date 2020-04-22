@@ -1,4 +1,4 @@
-# Adafruit LIS3MDL [![Build Status](https://github.com/adafruit/Adafruit_LIS3MDL/workflows/Arduino%20Library%20CI/badge.svg)](https://github.com/adafruit/Adafruit_LIS3MDL/actions)
+# Adafruit LIS3MDL [![Build Status](https://github.com/adafruit/Adafruit_LIS3MDL/workflows/Arduino%20Library%20CI/badge.svg)](https://github.com/adafruit/Adafruit_LIS3MDL/actions)[![Documentation](https://github.com/adafruit/ci-arduino/blob/master/assets/doxygen_badge.svg)](http://adafruit.github.io/Adafruit_LIS3MDL/html/index.html)
 
 <a href="https://www.adafruit.com/products/4479"><img src="assets/board.jpg?raw=true" width="500px"></a>
 
