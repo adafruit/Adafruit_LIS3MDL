@@ -1,17 +1,7 @@
-/**************************************************************************/
 /*!
-    @file     Adafruit_LIS3MDL.h
-    @author   Limor Fried (Adafruit Industries)
-
-    This is a library for the Adafruit LIS3MDL magnetometer breakout board
-    ----> https://www.adafruit.com/product/4479
-
-    Adafruit invests time and resources providing this open source code,
-    please support Adafruit and open-source hardware by purchasing
-    products from Adafruit!
-
-*/
-/**************************************************************************/
+ * @file     Adafruit_LIS3MDL.h
+ *
+ */
 
 #ifndef ADAFRUIT_LIS3MDL_H
 #define ADAFRUIT_LIS3MDL_H

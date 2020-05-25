@@ -1,19 +1,24 @@
-/**************************************************************************/
 /*!
-    @file     Adafruit_LIS3MDL.cpp
-    @author   Limor Fried (Adafruit Industries)
-
-    This is a library for the Adafruit LIS3MDL magnetometer breakout board
-    ----> https://www.adafruit.com/product/4479
-
-    Adafruit invests time and resources providing this open source code,
-    please support Adafruit and open-source hardware by purchasing
-    products from Adafruit!
-
-    @section license License
-    BSD license, all text here must be included in any redistribution.
-*/
-/**************************************************************************/
+ * @file     Adafruit_LIS3MDL.cpp
+ *
+ * @mainpage Adafruit LIS3MDL Breakout
+ *
+ * @section intro_sec Introduction
+ *
+ * This is a library for the Adafruit LIS3MDL magnetometer breakout board
+ * ----> https://www.adafruit.com/product/4479
+ *
+ * Adafruit invests time and resources providing this open source code,
+ * please support Adafruit and open-source hardware by purchasing
+ * products from Adafruit!
+ *
+ * @author   Limor Fried (Adafruit Industries)
+ *
+ * @section license License
+ *
+ * BSD license, all text here must be included in any redistribution.
+ *
+ */
 
 #if ARDUINO >= 100
 #include "Arduino.h"
