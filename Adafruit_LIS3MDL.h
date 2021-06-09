@@ -23,6 +23,7 @@ I2C ADDRESS/BITS
 #define LIS3MDL_REG_CTRL_REG2 0x21 ///< Register address for control 2
 #define LIS3MDL_REG_CTRL_REG3 0x22 ///< Register address for control 3
 #define LIS3MDL_REG_CTRL_REG4 0x23 ///< Register address for control 3
+#define LIS3MDL_REG_STATUS 0x27    ///< Register address for status
 #define LIS3MDL_REG_OUT_X_L 0x28   ///< Register address for X axis lower byte
 #define LIS3MDL_REG_INT_CFG 0x30   ///< Interrupt configuration register
 #define LIS3MDL_REG_INT_THS_L 0x32 ///< Low byte of the irq threshold
@@ -96,6 +97,11 @@ public:
   bool getEvent(sensors_event_t *event);
   void getSensor(sensor_t *sensor);
 
+  // Arduino compatible API
+  int readMagneticField(float &x, float &y, float &z);
+  float magneticFieldSampleRate(void);
+  int magneticFieldAvailable(void);
+
   int16_t x,     ///< The last read X mag in raw units
       y,         ///< The last read Y mag in raw units
       z;         ///< The last read Z mag in raw units
@@ -108,6 +114,7 @@ private:
 
   Adafruit_I2CDevice *i2c_dev = NULL;
   Adafruit_SPIDevice *spi_dev = NULL;
+  Adafruit_BusIO_Register *busio = NULL;
 
   int32_t _sensorID;
 };
