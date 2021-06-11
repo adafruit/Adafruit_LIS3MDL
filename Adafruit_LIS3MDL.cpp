@@ -527,6 +527,9 @@ int Adafruit_LIS3MDL::magneticFieldAvailable(void) {
 /**************************************************************************/
 /*!
     @brief Read magnetic data
+    @param x reference to x axis
+    @param y reference to y axis
+    @param z reference to z axis
     @returns 1 if success, 0 if not
 */
 int Adafruit_LIS3MDL::readMagneticField(float &x, float &y, float &z) {
