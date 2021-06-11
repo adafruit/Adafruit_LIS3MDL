@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['read',['read',['../class_adafruit___l_i_s3_m_d_l.html#af70239118a9820f46b9ce348f182d010',1,'Adafruit_LIS3MDL']]],
-  ['reset',['reset',['../class_adafruit___l_i_s3_m_d_l.html#a76ee35e3a6945dde8d22bd19e9920fd0',1,'Adafruit_LIS3MDL']]]
+  ['magneticfieldavailable',['magneticFieldAvailable',['../class_adafruit___l_i_s3_m_d_l.html#abf8bb035ebccdd09449c386dc907917c',1,'Adafruit_LIS3MDL']]],
+  ['magneticfieldsamplerate',['magneticFieldSampleRate',['../class_adafruit___l_i_s3_m_d_l.html#a8fabf4409a8a73e81a207a0d07e37fc4',1,'Adafruit_LIS3MDL']]]
 ];

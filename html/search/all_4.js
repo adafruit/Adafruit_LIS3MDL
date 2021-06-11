@@ -33,6 +33,7 @@ var searchData=
   ['lis3mdl_5freg_5fint_5fcfg',['LIS3MDL_REG_INT_CFG',['../_adafruit___l_i_s3_m_d_l_8h.html#abb7157770c142b709426342db4c42f30',1,'Adafruit_LIS3MDL.h']]],
   ['lis3mdl_5freg_5fint_5fths_5fl',['LIS3MDL_REG_INT_THS_L',['../_adafruit___l_i_s3_m_d_l_8h.html#a71fb73d61c663830821c945ac39617d2',1,'Adafruit_LIS3MDL.h']]],
   ['lis3mdl_5freg_5fout_5fx_5fl',['LIS3MDL_REG_OUT_X_L',['../_adafruit___l_i_s3_m_d_l_8h.html#adb4fe4c10c4c94644ff726b66b6646cf',1,'Adafruit_LIS3MDL.h']]],
+  ['lis3mdl_5freg_5fstatus',['LIS3MDL_REG_STATUS',['../_adafruit___l_i_s3_m_d_l_8h.html#a993660a74409e86c725eed0a2a0aecfb',1,'Adafruit_LIS3MDL.h']]],
   ['lis3mdl_5freg_5fwho_5fam_5fi',['LIS3MDL_REG_WHO_AM_I',['../_adafruit___l_i_s3_m_d_l_8h.html#ad33f9a4d126c3c083ead45d77735fd6b',1,'Adafruit_LIS3MDL.h']]],
   ['lis3mdl_5fsinglemode',['LIS3MDL_SINGLEMODE',['../_adafruit___l_i_s3_m_d_l_8h.html#a861cd0b7b8f6514e05b3dee9e22b731daaca7bb01235877b9856a7e453df3c07b',1,'Adafruit_LIS3MDL.h']]],
   ['lis3mdl_5fultrahighmode',['LIS3MDL_ULTRAHIGHMODE',['../_adafruit___l_i_s3_m_d_l_8h.html#a715200c0b447c54981c86af08aff425aaf8c44414d5d74cee076f505e5701d46c',1,'Adafruit_LIS3MDL.h']]]
