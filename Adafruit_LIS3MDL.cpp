@@ -53,7 +53,6 @@ bool Adafruit_LIS3MDL::begin_I2C(uint8_t i2c_address, TwoWire *wire) {
   if (!i2c_dev->begin()) {
     return false;
   }
-
   return _init();
 }
 
@@ -457,4 +456,77 @@ void Adafruit_LIS3MDL::selfTest(bool flag) {
       Adafruit_BusIO_RegisterBits(&CTRL_REG1, 1, 0);
 
   stbit.write(flag);
+}
+
+/**************************************************************************/
+/*!
+    @brief Get the magnetic data rate.
+    @returns The data rate in float
+*/
+float Adafruit_LIS3MDL::magneticFieldSampleRate(void) {
+  switch (this->getDataRate()) {
+  case LIS3MDL_DATARATE_0_625_HZ:
+    return 0.625f;
+  case LIS3MDL_DATARATE_1_25_HZ:
+    return 1.25f;
+  case LIS3MDL_DATARATE_2_5_HZ:
+    return 2.5f;
+  case LIS3MDL_DATARATE_5_HZ:
+    return 5.0f;
+  case LIS3MDL_DATARATE_10_HZ:
+    return 10.0f;
+  case LIS3MDL_DATARATE_20_HZ:
+    return 20.0f;
+  case LIS3MDL_DATARATE_40_HZ:
+    return 40.0f;
+  case LIS3MDL_DATARATE_80_HZ:
+    return 80.0f;
+  case LIS3MDL_DATARATE_155_HZ:
+    return 155.0f;
+  case LIS3MDL_DATARATE_300_HZ:
+    return 300.0f;
+  case LIS3MDL_DATARATE_560_HZ:
+    return 560.0f;
+  case LIS3MDL_DATARATE_1000_HZ:
+    return 1000.0f;
+  }
+
+  return 0;
+}
+
+/**************************************************************************/
+/*!
+    @brief Check for available data from magnetic
+    @returns 1 if available, 0 if not
+*/
+int Adafruit_LIS3MDL::magneticFieldAvailable(void) {
+  Adafruit_BusIO_Register REG_STATUS = Adafruit_BusIO_Register(
+      i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, LIS3MDL_REG_STATUS, 1);
+  return (REG_STATUS.read() & 0x08) ? 1 : 0;
+}
+
+/**************************************************************************/
+/*!
+    @brief Read magnetic data
+    @param x reference to x axis
+    @param y reference to y axis
+    @param z reference to z axis
+    @returns 1 if success, 0 if not
+*/
+int Adafruit_LIS3MDL::readMagneticField(float &x, float &y, float &z) {
+  int16_t data[3];
+
+  Adafruit_BusIO_Register XYZDataReg = Adafruit_BusIO_Register(
+      i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, LIS3MDL_REG_OUT_X_L, 6);
+
+  if (!XYZDataReg.read((uint8_t *)data, sizeof(data))) {
+    x = y = z = NAN;
+    return 0;
+  }
+
+  x = data[0] * 4.0 * 100.0 / 32768.0;
+  y = data[1] * 4.0 * 100.0 / 32768.0;
+  z = data[2] * 4.0 * 100.0 / 32768.0;
+
+  return 1;
 }
