@@ -53,7 +53,6 @@ bool Adafruit_LIS3MDL::begin_I2C(uint8_t i2c_address, TwoWire *wire) {
   if (!i2c_dev->begin()) {
     return false;
   }
-
   return _init();
 }
 
@@ -75,7 +74,6 @@ boolean Adafruit_LIS3MDL::begin_SPI(uint8_t cs_pin, SPIClass *theSPI) {
   if (!spi_dev->begin()) {
     return false;
   }
-
   return _init();
 }
 
@@ -99,7 +97,6 @@ bool Adafruit_LIS3MDL::begin_SPI(int8_t cs_pin, int8_t sck_pin, int8_t miso_pin,
   if (!spi_dev->begin()) {
     return false;
   }
-
   return _init();
 }
 
@@ -520,7 +517,7 @@ int Adafruit_LIS3MDL::readMagneticField(float &x, float &y, float &z) {
   int16_t data[3];
 
   Adafruit_BusIO_Register XYZDataReg = Adafruit_BusIO_Register(
-      i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, LIS3MDL_REG_OUT_X_L, 1);
+      i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, LIS3MDL_REG_OUT_X_L, 6);
 
   if (!XYZDataReg.read((uint8_t *)data, sizeof(data))) {
     x = y = z = NAN;
