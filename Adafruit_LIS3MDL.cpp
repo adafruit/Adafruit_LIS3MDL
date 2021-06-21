@@ -54,11 +54,6 @@ bool Adafruit_LIS3MDL::begin_I2C(uint8_t i2c_address, TwoWire *wire) {
     return false;
   }
 
-  busio = new Adafruit_BusIO_Register(i2c_dev, 0x0000);
-  if (!busio) {
-    return false;
-  }
-
   return _init();
 }
 
@@ -78,12 +73,6 @@ boolean Adafruit_LIS3MDL::begin_SPI(uint8_t cs_pin, SPIClass *theSPI) {
                                      theSPI);
   }
   if (!spi_dev->begin()) {
-    return false;
-  }
-
-  busio = new Adafruit_BusIO_Register(spi_dev, 0x0000,
-                                      AD8_HIGH_TOREAD_AD7_HIGH_TOINC);
-  if (!busio) {
     return false;
   }
 
@@ -108,12 +97,6 @@ bool Adafruit_LIS3MDL::begin_SPI(int8_t cs_pin, int8_t sck_pin, int8_t miso_pin,
                                      SPI_MODE0);            // data mode
   }
   if (!spi_dev->begin()) {
-    return false;
-  }
-
-  busio = new Adafruit_BusIO_Register(spi_dev, 0x0000,
-                                      AD8_HIGH_TOREAD_AD7_HIGH_TOINC);
-  if (!busio) {
     return false;
   }
 
@@ -520,8 +503,9 @@ float Adafruit_LIS3MDL::magneticFieldSampleRate(void) {
     @returns 1 if available, 0 if not
 */
 int Adafruit_LIS3MDL::magneticFieldAvailable(void) {
-  busio->setAddress(LIS3MDL_REG_STATUS);
-  return (busio->read() & 0x08) ? 1 : 0;
+  Adafruit_BusIO_Register REG_STATUS = Adafruit_BusIO_Register(
+      i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, LIS3MDL_REG_STATUS, 1);
+  return (REG_STATUS.read() & 0x08) ? 1 : 0;
 }
 
 /**************************************************************************/
@@ -535,9 +519,10 @@ int Adafruit_LIS3MDL::magneticFieldAvailable(void) {
 int Adafruit_LIS3MDL::readMagneticField(float &x, float &y, float &z) {
   int16_t data[3];
 
-  busio->setAddress(LIS3MDL_REG_OUT_X_L);
+  Adafruit_BusIO_Register XYZDataReg = Adafruit_BusIO_Register(
+      i2c_dev, spi_dev, AD8_HIGH_TOREAD_AD7_HIGH_TOINC, LIS3MDL_REG_OUT_X_L, 1);
 
-  if (!busio->read((uint8_t *)data, sizeof(data))) {
+  if (!XYZDataReg.read((uint8_t *)data, sizeof(data))) {
     x = y = z = NAN;
     return 0;
   }

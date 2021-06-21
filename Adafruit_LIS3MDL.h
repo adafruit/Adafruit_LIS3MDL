@@ -114,7 +114,6 @@ private:
 
   Adafruit_I2CDevice *i2c_dev = NULL;
   Adafruit_SPIDevice *spi_dev = NULL;
-  Adafruit_BusIO_Register *busio = NULL;
 
   int32_t _sensorID;
 };
