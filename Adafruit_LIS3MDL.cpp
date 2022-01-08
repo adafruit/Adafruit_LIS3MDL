@@ -62,11 +62,12 @@ bool Adafruit_LIS3MDL::begin_I2C(uint8_t i2c_address, TwoWire *wire) {
  *    @param  theSPI The SPI object to be used for SPI connections.
  *    @return True if initialization was successful, otherwise false.
  */
-boolean Adafruit_LIS3MDL::begin_SPI(uint8_t cs_pin, SPIClass *theSPI) {
+boolean Adafruit_LIS3MDL::begin_SPI(uint8_t cs_pin, SPIClass *theSPI,
+                                    uint32_t frequency) {
   i2c_dev = NULL;
   if (!spi_dev) {
     spi_dev = new Adafruit_SPIDevice(cs_pin,
-                                     1000000,               // frequency
+                                     frequency,             // frequency
                                      SPI_BITORDER_MSBFIRST, // bit order
                                      SPI_MODE0,             // data mode
                                      theSPI);
@@ -86,11 +87,11 @@ boolean Adafruit_LIS3MDL::begin_SPI(uint8_t cs_pin, SPIClass *theSPI) {
  *    @return True if initialization was successful, otherwise false.
  */
 bool Adafruit_LIS3MDL::begin_SPI(int8_t cs_pin, int8_t sck_pin, int8_t miso_pin,
-                                 int8_t mosi_pin) {
+                                 int8_t mosi_pin, uint32_t frequency) {
   i2c_dev = NULL;
   if (!spi_dev) {
     spi_dev = new Adafruit_SPIDevice(cs_pin, sck_pin, miso_pin, mosi_pin,
-                                     1000000,               // frequency
+                                     frequency,             // frequency
                                      SPI_BITORDER_MSBFIRST, // bit order
                                      SPI_MODE0);            // data mode
   }
