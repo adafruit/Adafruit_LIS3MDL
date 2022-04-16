@@ -110,6 +110,9 @@ public:
       y_gauss,   ///< The last read Y mag in 'gauss'
       z_gauss;   ///< The last read Z mag in 'gauss'
 
+  //! buffer for the magnetometer range
+  lis3mdl_range_t rangeBuffered = LIS3MDL_RANGE_4_GAUSS;
+
 private:
   bool _init(void);
 
