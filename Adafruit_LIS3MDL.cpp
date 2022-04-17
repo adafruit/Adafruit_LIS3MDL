@@ -60,13 +60,15 @@ bool Adafruit_LIS3MDL::begin_I2C(uint8_t i2c_address, TwoWire *wire) {
  *    @brief  Sets up the hardware and initializes hardware SPI
  *    @param  cs_pin The arduino pin # connected to chip select
  *    @param  theSPI The SPI object to be used for SPI connections.
+ *    @param  frequency The SPI bus frequency
  *    @return True if initialization was successful, otherwise false.
  */
-boolean Adafruit_LIS3MDL::begin_SPI(uint8_t cs_pin, SPIClass *theSPI) {
+boolean Adafruit_LIS3MDL::begin_SPI(uint8_t cs_pin, SPIClass *theSPI,
+                                    uint32_t frequency) {
   i2c_dev = NULL;
   if (!spi_dev) {
     spi_dev = new Adafruit_SPIDevice(cs_pin,
-                                     1000000,               // frequency
+                                     frequency,             // frequency
                                      SPI_BITORDER_MSBFIRST, // bit order
                                      SPI_MODE0,             // data mode
                                      theSPI);
@@ -83,14 +85,15 @@ boolean Adafruit_LIS3MDL::begin_SPI(uint8_t cs_pin, SPIClass *theSPI) {
  *    @param  sck_pin The arduino pin # connected to SPI clock
  *    @param  miso_pin The arduino pin # connected to SPI MISO
  *    @param  mosi_pin The arduino pin # connected to SPI MOSI
+ *    @param  frequency The SPI bus frequency
  *    @return True if initialization was successful, otherwise false.
  */
 bool Adafruit_LIS3MDL::begin_SPI(int8_t cs_pin, int8_t sck_pin, int8_t miso_pin,
-                                 int8_t mosi_pin) {
+                                 int8_t mosi_pin, uint32_t frequency) {
   i2c_dev = NULL;
   if (!spi_dev) {
     spi_dev = new Adafruit_SPIDevice(cs_pin, sck_pin, miso_pin, mosi_pin,
-                                     1000000,               // frequency
+                                     frequency,             // frequency
                                      SPI_BITORDER_MSBFIRST, // bit order
                                      SPI_MODE0);            // data mode
   }
@@ -146,6 +149,8 @@ void Adafruit_LIS3MDL::reset(void) {
       Adafruit_BusIO_RegisterBits(&CTRL_REG2, 1, 2);
   resetbits.write(0x1);
   delay(10);
+
+  getRange();
 }
 
 /**************************************************************************/
@@ -168,16 +173,21 @@ void Adafruit_LIS3MDL::read(void) {
   z = buffer[4];
   z |= buffer[5] << 8;
 
-  lis3mdl_range_t range = getRange();
   float scale = 1; // LSB per gauss
-  if (range == LIS3MDL_RANGE_16_GAUSS)
+  switch (rangeBuffered) {
+  case LIS3MDL_RANGE_16_GAUSS:
     scale = 1711;
-  if (range == LIS3MDL_RANGE_12_GAUSS)
+    break;
+  case LIS3MDL_RANGE_12_GAUSS:
     scale = 2281;
-  if (range == LIS3MDL_RANGE_8_GAUSS)
+    break;
+  case LIS3MDL_RANGE_8_GAUSS:
     scale = 3421;
-  if (range == LIS3MDL_RANGE_4_GAUSS)
+    break;
+  case LIS3MDL_RANGE_4_GAUSS:
     scale = 6842;
+    break;
+  }
 
   x_gauss = (float)x / scale;
   y_gauss = (float)y / scale;
@@ -368,6 +378,8 @@ void Adafruit_LIS3MDL::setRange(lis3mdl_range_t range) {
   Adafruit_BusIO_RegisterBits rangebits =
       Adafruit_BusIO_RegisterBits(&CTRL_REG2, 2, 5);
   rangebits.write((uint8_t)range);
+
+  rangeBuffered = range;
 }
 
 /**************************************************************************/
@@ -382,7 +394,10 @@ lis3mdl_range_t Adafruit_LIS3MDL::getRange(void) {
                               LIS3MDL_REG_CTRL_REG2, 1);
   Adafruit_BusIO_RegisterBits rangebits =
       Adafruit_BusIO_RegisterBits(&CTRL_REG2, 2, 5);
-  return (lis3mdl_range_t)rangebits.read();
+
+  rangeBuffered = (lis3mdl_range_t)rangebits.read();
+
+  return rangeBuffered;
 }
 
 /**************************************************************************/
