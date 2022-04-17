@@ -86,12 +86,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aac9f3bde4b7bcaa61a5e46db7f46d3d0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___l_i_s3_m_d_l.html#aac9f3bde4b7bcaa61a5e46db7f46d3d0">begin_I2C</a> (uint8_t i2c_addr=<a class="el" href="_adafruit___l_i_s3_m_d_l_8h.html#a51fd2dc234b55a85808541dcf3a17218">LIS3MDL_I2CADDR_DEFAULT</a>, TwoWire *wire=&amp;Wire)</td></tr>
 <tr class="memdesc:aac9f3bde4b7bcaa61a5e46db7f46d3d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the hardware and initializes I2C.  <a href="#aac9f3bde4b7bcaa61a5e46db7f46d3d0">More...</a><br /></td></tr>
 <tr class="separator:aac9f3bde4b7bcaa61a5e46db7f46d3d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ce162f4210290957a06abef419109b7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___l_i_s3_m_d_l.html#a4ce162f4210290957a06abef419109b7">begin_SPI</a> (uint8_t cs_pin, SPIClass *theSPI=&amp;SPI)</td></tr>
-<tr class="memdesc:a4ce162f4210290957a06abef419109b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the hardware and initializes hardware SPI.  <a href="#a4ce162f4210290957a06abef419109b7">More...</a><br /></td></tr>
-<tr class="separator:a4ce162f4210290957a06abef419109b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2b7e1510f6e00f4fc352d8502131975"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___l_i_s3_m_d_l.html#ae2b7e1510f6e00f4fc352d8502131975">begin_SPI</a> (int8_t cs_pin, int8_t sck_pin, int8_t miso_pin, int8_t mosi_pin)</td></tr>
-<tr class="memdesc:ae2b7e1510f6e00f4fc352d8502131975"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the hardware and initializes software SPI.  <a href="#ae2b7e1510f6e00f4fc352d8502131975">More...</a><br /></td></tr>
-<tr class="separator:ae2b7e1510f6e00f4fc352d8502131975"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed0b85657b95a755cc5d178b17029529"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___l_i_s3_m_d_l.html#aed0b85657b95a755cc5d178b17029529">begin_SPI</a> (uint8_t cs_pin, SPIClass *theSPI=&amp;SPI, uint32_t frequency=1000000)</td></tr>
+<tr class="memdesc:aed0b85657b95a755cc5d178b17029529"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the hardware and initializes hardware SPI.  <a href="#aed0b85657b95a755cc5d178b17029529">More...</a><br /></td></tr>
+<tr class="separator:aed0b85657b95a755cc5d178b17029529"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62e4b6c35a61609e0d0270a71f081a8a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___l_i_s3_m_d_l.html#a62e4b6c35a61609e0d0270a71f081a8a">begin_SPI</a> (int8_t cs_pin, int8_t sck_pin, int8_t miso_pin, int8_t mosi_pin, uint32_t frequency=1000000)</td></tr>
+<tr class="memdesc:a62e4b6c35a61609e0d0270a71f081a8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the hardware and initializes software SPI.  <a href="#a62e4b6c35a61609e0d0270a71f081a8a">More...</a><br /></td></tr>
+<tr class="separator:a62e4b6c35a61609e0d0270a71f081a8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a76ee35e3a6945dde8d22bd19e9920fd0"><td class="memItemLeft" align="right" valign="top"><a id="a76ee35e3a6945dde8d22bd19e9920fd0"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___l_i_s3_m_d_l.html#a76ee35e3a6945dde8d22bd19e9920fd0">reset</a> (void)</td></tr>
 <tr class="memdesc:a76ee35e3a6945dde8d22bd19e9920fd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a software reset. <br /></td></tr>
@@ -178,6 +178,10 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
 float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___l_i_s3_m_d_l.html#ab6f2d0891257ced98aa47ea60130ae71">z_gauss</a></td></tr>
 <tr class="memdesc:ab6f2d0891257ced98aa47ea60130ae71"><td class="mdescLeft">&#160;</td><td class="mdescRight">The last read Z mag in 'gauss'. <br /></td></tr>
 <tr class="separator:ab6f2d0891257ced98aa47ea60130ae71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2347e02d1f78fcc9ba46f222beb37ab8"><td class="memItemLeft" align="right" valign="top"><a id="a2347e02d1f78fcc9ba46f222beb37ab8"></a>
+<a class="el" href="_adafruit___l_i_s3_m_d_l_8h.html#aa98cbf2d4d06f57f0439102a3f74e466">lis3mdl_range_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___l_i_s3_m_d_l.html#a2347e02d1f78fcc9ba46f222beb37ab8">rangeBuffered</a> = <a class="el" href="_adafruit___l_i_s3_m_d_l_8h.html#aa98cbf2d4d06f57f0439102a3f74e466a8ca0406fdb8e45c725c243c3e098fe47">LIS3MDL_RANGE_4_GAUSS</a></td></tr>
+<tr class="memdesc:a2347e02d1f78fcc9ba46f222beb37ab8"><td class="mdescLeft">&#160;</td><td class="mdescRight">buffer for the magnetometer range <br /></td></tr>
+<tr class="separator:a2347e02d1f78fcc9ba46f222beb37ab8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class for hardware interfacing with an LIS3MDL magnetometer </p>
@@ -220,8 +224,8 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
 
 </div>
 </div>
-<a id="a4ce162f4210290957a06abef419109b7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ce162f4210290957a06abef419109b7">&#9670;&nbsp;</a></span>begin_SPI() <span class="overload">[1/2]</span></h2>
+<a id="aed0b85657b95a755cc5d178b17029529"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed0b85657b95a755cc5d178b17029529">&#9670;&nbsp;</a></span>begin_SPI() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -236,7 +240,13 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">SPIClass *&#160;</td>
-          <td class="paramname"><em>theSPI</em> = <code>&amp;SPI</code>&#160;</td>
+          <td class="paramname"><em>theSPI</em> = <code>&amp;SPI</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>frequency</em> = <code>1000000</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -251,6 +261,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
   <table class="params">
     <tr><td class="paramname">cs_pin</td><td>The arduino pin # connected to chip select </td></tr>
     <tr><td class="paramname">theSPI</td><td>The SPI object to be used for SPI connections. </td></tr>
+    <tr><td class="paramname">frequency</td><td>The SPI bus frequency </td></tr>
   </table>
   </dd>
 </dl>
@@ -258,8 +269,8 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
 
 </div>
 </div>
-<a id="ae2b7e1510f6e00f4fc352d8502131975"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae2b7e1510f6e00f4fc352d8502131975">&#9670;&nbsp;</a></span>begin_SPI() <span class="overload">[2/2]</span></h2>
+<a id="a62e4b6c35a61609e0d0270a71f081a8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62e4b6c35a61609e0d0270a71f081a8a">&#9670;&nbsp;</a></span>begin_SPI() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -286,7 +297,13 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int8_t&#160;</td>
-          <td class="paramname"><em>mosi_pin</em>&#160;</td>
+          <td class="paramname"><em>mosi_pin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>frequency</em> = <code>1000000</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -303,6 +320,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
     <tr><td class="paramname">sck_pin</td><td>The arduino pin # connected to SPI clock </td></tr>
     <tr><td class="paramname">miso_pin</td><td>The arduino pin # connected to SPI MISO </td></tr>
     <tr><td class="paramname">mosi_pin</td><td>The arduino pin # connected to SPI MOSI </td></tr>
+    <tr><td class="paramname">frequency</td><td>The SPI bus frequency </td></tr>
   </table>
   </dd>
 </dl>
