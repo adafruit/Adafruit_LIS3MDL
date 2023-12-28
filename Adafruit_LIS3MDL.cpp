@@ -20,12 +20,7 @@
  *
  */
 
-#if ARDUINO >= 100
 #include "Arduino.h"
-#else
-#include "WProgram.h"
-#endif
-
 #include <Adafruit_LIS3MDL.h>
 #include <Wire.h>
 
@@ -45,10 +40,13 @@ Adafruit_LIS3MDL::Adafruit_LIS3MDL() {}
  *    @return True if initialization was successful, otherwise false.
  */
 bool Adafruit_LIS3MDL::begin_I2C(uint8_t i2c_address, TwoWire *wire) {
-  if (!i2c_dev) {
-    i2c_dev = new Adafruit_I2CDevice(i2c_address, wire);
-  }
+  if (i2c_dev)
+    delete i2c_dev;
+  if (spi_dev)
+    delete spi_dev;
+
   spi_dev = NULL;
+  i2c_dev = new Adafruit_I2CDevice(i2c_address, wire);
 
   if (!i2c_dev->begin()) {
     return false;
@@ -65,14 +63,17 @@ bool Adafruit_LIS3MDL::begin_I2C(uint8_t i2c_address, TwoWire *wire) {
  */
 boolean Adafruit_LIS3MDL::begin_SPI(uint8_t cs_pin, SPIClass *theSPI,
                                     uint32_t frequency) {
+  if (i2c_dev)
+    delete i2c_dev;
+  if (spi_dev)
+    delete spi_dev;
+
   i2c_dev = NULL;
-  if (!spi_dev) {
-    spi_dev = new Adafruit_SPIDevice(cs_pin,
-                                     frequency,             // frequency
-                                     SPI_BITORDER_MSBFIRST, // bit order
-                                     SPI_MODE0,             // data mode
-                                     theSPI);
-  }
+  spi_dev = new Adafruit_SPIDevice(cs_pin,
+                                   frequency,             // frequency
+                                   SPI_BITORDER_MSBFIRST, // bit order
+                                   SPI_MODE0,             // data mode
+                                   theSPI);
   if (!spi_dev->begin()) {
     return false;
   }
@@ -90,13 +91,18 @@ boolean Adafruit_LIS3MDL::begin_SPI(uint8_t cs_pin, SPIClass *theSPI,
  */
 bool Adafruit_LIS3MDL::begin_SPI(int8_t cs_pin, int8_t sck_pin, int8_t miso_pin,
                                  int8_t mosi_pin, uint32_t frequency) {
+
+  if (i2c_dev)
+    delete i2c_dev;
+  if (spi_dev)
+    delete spi_dev;
+
   i2c_dev = NULL;
-  if (!spi_dev) {
-    spi_dev = new Adafruit_SPIDevice(cs_pin, sck_pin, miso_pin, mosi_pin,
-                                     frequency,             // frequency
-                                     SPI_BITORDER_MSBFIRST, // bit order
-                                     SPI_MODE0);            // data mode
-  }
+  spi_dev = new Adafruit_SPIDevice(cs_pin, sck_pin, miso_pin, mosi_pin,
+                                   frequency,             // frequency
+                                   SPI_BITORDER_MSBFIRST, // bit order
+                                   SPI_MODE0);            // data mode
+
   if (!spi_dev->begin()) {
     return false;
   }
