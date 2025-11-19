@@ -127,9 +127,6 @@ bool Adafruit_LIS3MDL::_init(void) {
 
   reset();
 
-  // set high quality performance mode
-  setPerformanceMode(LIS3MDL_ULTRAHIGHMODE);
-
   // 155Hz default rate
   setDataRate(LIS3MDL_DATARATE_155_HZ);
 
